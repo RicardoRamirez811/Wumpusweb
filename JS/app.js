@@ -1,5 +1,5 @@
 (() => {
-  const N = 5;
+  const N = 6;
 
   // Estados del editor
   const TOOL = {
