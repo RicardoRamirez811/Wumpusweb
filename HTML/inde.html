@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mundo de Wumpus 5x5</title>
+  <link rel="stylesheet" href="/CSS/style.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Mundo de Wumpus (5×5)</h1>
+    <p class="sub">Personaliza el mapa y luego juega / deja al agente explorar.</p>
+  </header>
+
+<main class="layout3">
+  <!-- IZQUIERDA: Configuración -->
+  <section class="panel">
+    <h2>Configuración</h2>
+
+    <div class="block">
+      <div class="row">
+        <label class="lbl">Herramienta:</label>
+        <div class="tools">
+          <button id="toolWumpus" class="btn tool active">Colocar Wumpus (1)</button>
+          <button id="toolPit" class="btn tool">Colocar Agujeros (∞)</button>
+          <button id="toolGold" class="btn tool">Colocar Oro (1)</button>
+          <button id="toolEraser" class="btn tool">Borrador</button>
+        </div>
+      </div>
+
+      <div class="hint">
+        Clic en una casilla para colocar. El aventurero inicia en <b>(1,1)</b> (esquina inferior izquierda).
+      </div>
+
+      <div class="row">
+        <button id="btnClear" class="btn">Limpiar mapa</button>
+        <button id="btnRandom" class="btn">Ejemplo aleatorio</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENTRO: Tablero -->
+  <section class="boardWrap centerBoard">
+    <div class="coords">
+      <span>Arriba = y+1</span>
+      <span>Derecha = x+1</span>
+    </div>
+
+    <div id="board" class="board" aria-label="Tablero 5x5"></div>
+
+    <div class="smallNote">
+      Nota: Durante el juego no se muestran Wumpus/Agujeros “ocultos”; solo se revelan si caes en ellos.
+    </div>
+  </section>
+
+  <!-- DERECHA: Juego -->
+  <section class="panel">
+    <h2>Juego</h2>
+
+    <div class="block">
+      <div class="row">
+        <button id="btnStart" class="btn primary">Iniciar partida</button>
+        <button id="btnResetRun" class="btn">Reiniciar partida</button>
+      </div>
+
+      <div class="row">
+        <label class="lbl">Modo:</label>
+        <div class="tools">
+          <button id="modeManual" class="btn tool active">Manual</button>
+          <button id="modeAuto" class="btn tool">Auto (agente)</button>
+        </div>
+      </div>
+
+      <div id="manualControls" class="manual">
+        <div class="dpad">
+          <button id="up" class="btn small">↑</button>
+          <div class="mid">
+            <button id="left" class="btn small">←</button>
+            <button id="right" class="btn small">→</button>
+          </div>
+          <button id="down" class="btn small">↓</button>
+        </div>
+      </div>
+
+      <div id="autoControls" class="auto hidden">
+        <div class="row">
+          <button id="btnStep" class="btn primary">Paso</button>
+          <button id="btnRun" class="btn">Correr</button>
+          <button id="btnStop" class="btn danger">Detener</button>
+        </div>
+      </div>
+
+      <!-- Leyenda (puede ir aquí mismo, debajo) -->
+      <div class="legend">
+        <div class="tag"><span class="sw adv"></span> Advertencia</div>
+        <div class="tag"><span class="sw safe"></span> Seguro inferido</div>
+        <div class="tag"><span class="sw danger"></span> Peligro</div>
+        <div class="tag"><span class="sw gold"></span> Oro encontrado</div>
+        <div class="tag"><span class="sw breeze"></span> Brisa</div>
+        <div class="tag"><span class="sw stench"></span> Hedor</div>
+      </div>
+
+      <div id="status" class="status">Configura el mapa y presiona “Iniciar partida”.</div>
+    </div>
+  </section>
+</main>
+
+
+  <script src="/JS/app.js"></script>
+</body>
+</html>

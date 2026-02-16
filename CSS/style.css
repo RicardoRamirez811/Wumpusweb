@@ -1,0 +1,288 @@
+:root{
+  --bg:#0f1221;
+  --panel:#171a2e;
+  --panel2:#121427;
+  --text:#e9ecff;
+  --muted:#b8bee6;
+  --line:#2a2f54;
+
+  --cell:#1b2040;
+  --cell2:#161a36;
+
+  --yellow:#f5d04c;     /* advertencia general */
+  --red:#ff4d4d;        /* peligro / muerte */
+  --green:#4de1a8;      /* seguro inferido */
+  --gold:#ffcc66;       /* oro */
+  --blue:#7aa7ff;
+
+  --breeze:#6ad6ff;     /* brisa (celeste) */
+  --stench:#0f7a3a;     /* hedor (verde oscuro) */
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:linear-gradient(120deg, var(--bg), #0b0d18);
+  color:var(--text);
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.top{
+  padding:20px 18px 8px;
+  border-bottom:1px solid var(--line);
+}
+h1{ margin:0 0 6px; font-size:22px; }
+.sub{ margin:0; color:var(--muted); }
+
+/* Layout: config (izq) - tablero (centro) - juego (der) */
+.layout3{
+  display:grid;
+  grid-template-columns: 420px 1fr 420px;
+  gap:18px;
+  padding:18px;
+  align-items:start;
+}
+.centerBoard{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+@media (max-width: 1200px){
+  .layout3{ grid-template-columns: 1fr; }
+  .centerBoard{ align-items:flex-start; }
+}
+
+/* Paneles */
+.panel{
+  background:linear-gradient(180deg, var(--panel), var(--panel2));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.panel h2{
+  margin:10px 0 8px;
+  font-size:16px;
+  color:#dfe4ff;
+}
+.block{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(255,255,255,.03);
+  margin-bottom:10px;
+}
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:8px 0;
+}
+.lbl{ color:var(--muted); min-width:86px; }
+.tools{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* Botones */
+.btn{
+  background:#232a55;
+  color:var(--text);
+  border:1px solid #323a74;
+  border-radius:12px;
+  padding:10px 12px;
+  cursor:pointer;
+  transition:transform .05s ease, background .2s ease;
+}
+.btn:hover{ background:#2b3470; }
+.btn:active{ transform:translateY(1px); }
+
+.btn.primary{ background:#2c57ff; border-color:#2c57ff; }
+.btn.primary:hover{ background:#3b66ff; }
+
+.btn.danger{ background:#6a1d2a; border-color:#9a2b3e; }
+.btn.danger:hover{ background:#7a2332; }
+
+.btn.small{
+  width:54px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+
+.tool.active{
+  outline:2px solid rgba(122,167,255,.9);
+  outline-offset:2px;
+}
+
+.hint{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.35;
+}
+
+/* Tablero */
+.boardWrap{ padding:6px; }
+.coords{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:12px;
+  margin:6px 4px 10px;
+}
+
+.board{
+  display:grid;
+  grid-template-columns: repeat(5, 74px);
+  grid-template-rows: repeat(5, 74px);
+  gap:10px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  width:max-content;
+}
+
+.cell{
+  width:74px;
+  height:74px;
+  border-radius:16px;
+  border:1px solid #2b3266;
+  background:linear-gradient(180deg, var(--cell), var(--cell2));
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+}
+
+.cell .xy{
+  position:absolute;
+  top:6px;
+  left:8px;
+  font-size:11px;
+  color:rgba(233,236,255,.45);
+}
+
+.cell .icon{
+  font-size:22px;
+  opacity:.95;
+}
+
+/* Marcas visuales en celdas (según tu JS) */
+.cell.safe-inferred{
+  box-shadow: inset 0 0 0 3px rgba(77,225,168,.9);
+}
+
+/* advertencia general (si la sigues usando) */
+.cell.known-adv{
+  box-shadow: inset 0 0 0 3px rgba(245,208,76,.9);
+}
+
+/* marcas persistentes por sensores */
+.cell.breeze-mark{
+  box-shadow: inset 0 0 0 3px rgba(106,214,255,.95);
+}
+.cell.stench-mark{
+  box-shadow: inset 0 0 0 3px rgba(15,122,58,.95);
+}
+
+/* peligro conocido y muerte del intento */
+.cell.known-danger{
+  box-shadow: inset 0 0 0 3px rgba(255,77,77,.95);
+}
+.cell.dead{
+  box-shadow: inset 0 0 0 3px rgba(255,77,77,.95);
+}
+
+/* oro encontrado */
+.cell.found-gold{
+  box-shadow: inset 0 0 0 3px rgba(255,204,102,.95);
+}
+
+/* Badges */
+.cell .marks{
+  position:absolute;
+  bottom:6px;
+  left:8px;
+  display:flex;
+  gap:6px;
+  font-size:12px;
+  color:rgba(233,236,255,.75);
+}
+
+.badge{
+  padding:2px 6px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.18);
+}
+
+.badge.breeze{
+  border-color: rgba(106,214,255,.6);
+  background: rgba(106,214,255,.18);
+  color: #dff6ff;
+}
+.badge.stench{
+  border-color: rgba(15,122,58,.7);
+  background: rgba(15,122,58,.22);
+  color: #d9ffe7;
+}
+
+/* Controles manuales */
+.manual .dpad{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:center;
+}
+.manual .mid{
+  display:flex;
+  gap:8px;
+}
+.hidden{ display:none !important; }
+
+/* Leyenda + status */
+.legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:12px;
+}
+.tag{ display:flex; align-items:center; gap:6px; }
+.sw{
+  width:14px;
+  height:14px;
+  border-radius:4px;
+  display:inline-block;
+}
+.sw.adv{ background: var(--yellow); }
+.sw.safe{ background: var(--green); }
+.sw.danger{ background: var(--red); }
+.sw.gold{ background: var(--gold); }
+.sw.breeze{ background: var(--breeze); }
+.sw.stench{ background: var(--stench); }
+
+.status{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.18);
+  color:#dfe4ff;
+  font-size:13px;
+  min-height:44px;
+  line-height:1.35;
+}
+
+.smallNote{
+  color:var(--muted);
+  font-size:12px;
+  margin:10px 6px 0;
+  max-width:520px;
+}
