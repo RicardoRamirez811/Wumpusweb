@@ -16,6 +16,7 @@ import { randomExample } from "./random.js";
 // Obtiene referencias a todos los elementos del DOM
 const ui = getUI();
 
+
 // ===== ESTADO GLOBAL DEL JUEGO =====
 // Objeto central que almacena el estado completo del juego
 const state = {

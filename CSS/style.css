@@ -134,9 +134,12 @@ h1{ margin:0 0 6px; font-size:22px; }
 }
 
 .board{
+  --n: 6;              /* fallback si JS no lo setea */
+  --cellSize: 74px;    /* puedes ajustar */
+
   display:grid;
-  grid-template-columns: repeat(5, 74px);
-  grid-template-rows: repeat(5, 74px);
+  grid-template-columns: repeat(var(--n), var(--cellSize));
+  grid-template-rows: repeat(var(--n), var(--cellSize));
   gap:10px;
   padding:14px;
   border:1px solid var(--line);
@@ -146,8 +149,8 @@ h1{ margin:0 0 6px; font-size:22px; }
 }
 
 .cell{
-  width:74px;
-  height:74px;
+  width: var(--cellSize);
+  height: var(--cellSize);
   border-radius:16px;
   border:1px solid #2b3266;
   background:linear-gradient(180deg, var(--cell), var(--cell2));
@@ -285,4 +288,33 @@ h1{ margin:0 0 6px; font-size:22px; }
   font-size:12px;
   margin:10px 6px 0;
   max-width:520px;
+}
+
+
+.modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modalBox{
+  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  border: 1px solid var(--line);
+  padding: 28px;
+  border-radius: 18px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.modalBox h2{
+  margin-top: 0;
+}
+
+.modal.hidden{
+  display:none;
 }

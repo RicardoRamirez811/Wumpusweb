@@ -1,7 +1,10 @@
 // ===== CONFIGURACIÓN GLOBAL DEL JUEGO WUMPUS =====
 
 // Tamaño del tablero: N x N (6x6)
-export const N = 5;
+const boardEl = document.getElementById("board");
+const savedSize = Number(localStorage.getItem("wumpusSize")) || 6;
+boardEl.style.setProperty("--n", savedSize);
+export const N = savedSize;
 
 // Herramientas disponibles para editar el mapa
 // Define los tipos de objetos que se pueden colocar en el tablero
