@@ -66,7 +66,7 @@ export function buildGameActions(ui, state, setStatus, render, stopRunner, runAu
       state.agent.ended = true;
 
       const motivo = state.world[y][x].pit ? "un agujero" : "el Wumpus";
-      setStatus(ui, `💥 Perdiste: caíste en ${motivo}. Reiniciando automáticamente...`);
+      setStatus(ui, `💥 Perdiste: caíste en ${motivo}.`);
       render(ui, state);
 
       // En modo automático: intenta reiniciar si hay alternativas
